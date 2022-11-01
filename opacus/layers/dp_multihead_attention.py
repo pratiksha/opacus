@@ -97,6 +97,7 @@ class DPMultiheadAttention(nn.Module):
         self.embed_dim = embed_dim
         self.kdim = kdim if kdim is not None else embed_dim
         self.vdim = vdim if vdim is not None else embed_dim
+        self._qkv_same_embed_dim = self.kdim == embed_dim and self.vdim == embed_dim
 
         # when self._qkv_same_embed_dim = True, "in_proj_weight" rather than "q,k,v_weight" and fast path calculation will be used in "nn.transformer", which should be avoided. This is why we force self._qkv_same_embed_dim = False.
         self._qkv_same_embed_dim = False
